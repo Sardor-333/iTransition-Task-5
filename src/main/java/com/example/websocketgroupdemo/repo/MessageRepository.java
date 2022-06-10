@@ -13,16 +13,14 @@ public interface MessageRepository extends JpaRepository<Message, Long> {
 
     @Query(
             nativeQuery = true,
-            value = """
-                    select m.id as id,
-                           m.title as title,
-                           m.body as body,
-                           m.sender_id as senderId,
-                           m.receiver_id as receiverId,
-                           to_char(m.created_at, 'DD Mon, YYYY | HH24:MI') as sentAt
-                    from messages m
-                    where m.id = :messageId
-                    """
+            value = "select m.id as id,\n" +
+                    "                           m.title as title,\n" +
+                    "                           m.body as body,\n" +
+                    "                           m.sender_id as senderId,\n" +
+                    "                           m.receiver_id as receiverId,\n" +
+                    "                           to_char(m.created_at, 'DD Mon, YYYY | HH24:MI') as sentAt\n" +
+                    "                    from messages m\n" +
+                    "                    where m.id = :messageId"
     )
     MessageProjection getMessageProjection(@Param("messageId") Long messageId);
 
